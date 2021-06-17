@@ -1,0 +1,57 @@
+---
+- name: print_out_action_type
+  debug: 
+    msg: "{{network_opts['name']}}--{{network_opts['type_action']}}--{{host_ip}}"
+    
+- name: "GTM action start up or shutdown"
+  bigip_gtm_pool_member: 
+    pool: "{{item.0}}"
+    server_name: "{{item.1}}"
+    virtual_server: "{{item.2}}"
+    state： {{action}}
+    type: 'a'
+    provider:
+      server:
+      password:
+      user:
+      validate_certs: no
+  delegate_to: local_host
+  with_together: 
+    - "{{network_opts['pool']}}"
+    - "{{network_opts['pool_m_name']}}"
+    - "{{network_opts['vs_name']}}"   
+  when: network_opts['type_action'] == 'DisableGTM'    
+  tags: gtm_play
+  
+- name: pause 4 min
+  pause: 
+    minutes: 4
+  tags: stop_4
+  
+- name: ltm action
+  bigip_virtual_server: 
+    state： 
+    name: 
+    partition: "{{network_opts['partition'] }}"
+    provider: 
+      server:
+      password:
+      user:
+      validate_certs: no    
+  delegate_to: local_host
+  with_items: "{{ltm_vip_n}}"
+  when: network_opts['type_action'] == 'DisableLTM' 
+  
+- name: action in member
+  include_tasks: run_member.yml
+  with_together: 
+    - "{{network_opts['partition']}}"
+    - "{{network_opts['pool']}}"
+ 
+  when: network_opts['type_action'] == 'Disableltm_cross'     
+
+
+
+  
+  
+  

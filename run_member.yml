@@ -1,0 +1,12 @@
+---
+- name: offline ltm pool members
+  bigip_pool_member: 
+    pool: "{{item.1}}"
+    
+    
+  delegate_to: localhost
+  loop: "{{ltm_p_m}}"
+  loop_control: 
+    loop_var: member
+  tags: cross_play
+  when: 

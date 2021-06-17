@@ -1,0 +1,17 @@
+---
+- name: Read xml file
+  connection: local
+  gather_facts: no
+  hosts: localhost
+  vars:
+    data: "{{lookup('file', input_xml)| parse_xml('net_spec.yml')}}"
+  tasks:
+    - name: including vars
+      include_vars:
+        file: ./group_vars/main.yml
+        
+    - name: loop action in xml
+      include_tasks: take_action.yml
+      loop: "{{data['key']}}"
+      loop_control: 
+        loop_var: network_opts

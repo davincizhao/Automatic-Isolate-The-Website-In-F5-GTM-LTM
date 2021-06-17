@@ -1,0 +1,24 @@
+---
+vars: 
+  network_op: 
+    name: "{{item.name}}"
+    type_action: "{{item.type_action.get('option')}}"
+    host_name: "{{item.device}}"
+    ltm_vip: "{% if item.type_action.get('option') != 'DisableLTM' %} null {% else %} {% for vip in item.ltm_vip %} {{vip}} {% if not loop.last %}, {% endif %} {% endfor %} {% endif %}"
+    ltm_p_m: "{% if item.type_action.get('option') != 'Disablecrossite' %} null {% else %} {% for p_m in item.ltm_p_m %} {{p_m}} {% if not loop.last %}, {% endif %} {% endfor %} {% endif %}"    
+    
+keys:
+  key: 
+    value: "{{}}"
+    top: operation/actions/actions/
+    items: 
+      name: name
+      type_action: ".[@option]"
+      device: device
+      action: targets/taget/action
+      partition: 
+      pool: 
+      pool_m_name: 
+      virtual_server:
+      ltm_vip: targets/taget/vip
+      ltm_p_m: targets/taget/members/member

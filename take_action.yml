@@ -1,0 +1,10 @@
+---
+- set_fact: 
+    ltm_vip_n: "{{network_opts['ltm_vip'].split('.') | map('trim') | list}}"
+    ltm_p_m: "{{network_opts['ltm_p_member'].split('.') | map('trim') | list | unique}}"
+    
+- name: take network action according to xml
+  include_tasks: run_device.yml
+  loop: "{{network_opts['host_name']}}"
+  loop_control: 
+    loop_var: host_ip
