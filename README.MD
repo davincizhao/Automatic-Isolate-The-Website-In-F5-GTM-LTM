@@ -1,6 +1,6 @@
 # Automatic Isolate The Website In F5 GTM LTM
-
-
+## Network Diagram
+![Diagram](https://github.com/davincizhao/Automatic-Isolate-The-Website-In-F5-GTM-LTM/blob/main/F5%20diagram.png)
 
 
 ## Propose and Scope the Project
