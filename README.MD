@@ -4,8 +4,10 @@
 
 
 ## Propose and Scope the Project
- - Good structure XML file as Direct input, using ansible module to parsed xml, according to the keywords in xml,
- - Auto select data or action into ansible module. fully autmate finish the task, eliminate the manual's step of transform the XML to YAML formatting.
+ - Good structure XML file as Direct input, using ansible module to parsed xml
+ - According to the keywords in xml,
+ - Auto select data or action into ansible module. 
+ - Fully autmate finish the isolation tasks, eliminate the manual's step of transform the XML to YAML formatting.
 
 ## Tool-box server(AWX)
 - CI/CD tool platform: AWX (Ansible tower)
